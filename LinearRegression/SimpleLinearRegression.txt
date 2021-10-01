@@ -1,1 +1,41 @@
+CLASS lcl_linear_regression DEFINITION.
 
+PUBLIC SECTION.
+TYPES: t_input TYPE TABLE OF i.
+METHODS: start IMPORTING data type t_input
+               EXPORTING a    type i,
+                         b    type i.
+
+PROTECTED SECTION.
+
+PRIVATE SECTION.
+
+METHODS calculate_sums IMPORTING data type t_input
+                       EXPORTING sum_x  type i
+                                 sum_x2 type i
+                                 sum_y  type i
+                                 sum_xy type i,
+
+        calculate_constants IMPORTING sum_x  type i
+                                      sum_x2 type i
+                                      sum_y  type i
+                                      sum_xy type i
+                            EXPORTING a      type i
+                                      b      type i.
+
+ENDCLASS.
+
+CLASS lcl_linear_regression IMPLEMENTATION.
+
+METHOD start.
+
+ENDMETHOD.
+
+METHOD calculate_sums.
+
+ENDMETHOD.
+
+METHOD calculate_constants.
+
+ENDMETHOD. 
+ENDCLASS.
