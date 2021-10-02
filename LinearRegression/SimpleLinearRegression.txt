@@ -1,7 +1,11 @@
 CLASS lcl_linear_regression DEFINITION.
 
 PUBLIC SECTION.
-TYPES: t_input TYPE TABLE OF i.
+TYPES: BEGIN OF s_input.
+  x type i.
+  y type i.
+END OF s_input.
+TYPES: t_input TYPE TABLE OF s_input.
 METHODS: start IMPORTING data type t_input
                EXPORTING a    type i,
                          b    type i.
@@ -16,7 +20,8 @@ METHODS calculate_sums IMPORTING data type t_input
                                  sum_y  type i
                                  sum_xy type i,
 
-        calculate_constants IMPORTING sum_x  type i
+        calculate_constants IMPORTING n      type i
+                                      sum_x  type i
                                       sum_x2 type i
                                       sum_y  type i
                                       sum_xy type i
@@ -32,10 +37,24 @@ METHOD start.
 ENDMETHOD.
 
 METHOD calculate_sums.
+  CLEAR: sum_x, sum_x2, sum_y, sum_xy.
+
+  DO lines( data ) TIMES.
+    sum_x = sum_x + data[ sy-index ]-x.
+    sum_x2 = sum_x2 + data[ sy-index ]-x * data[ sy-index ]-x.
+    sum_y = sum_y + data[ sy-index ]-y.
+    sum_xy = sum_xy + data[ sy-index ]-x * data[ sy-index ]-y.
+  ENDDO.
+
 
 ENDMETHOD.
 
 METHOD calculate_constants.
+
+  CLEAR: a, b.
+
+  b = ( n * sum_xy - sum_x * sum_y ) / ( n * sum_x2 - sum_x * sum_x ).
+  a = ( sum_y - b*sum_x ) / n.
 
 ENDMETHOD. 
 ENDCLASS.
