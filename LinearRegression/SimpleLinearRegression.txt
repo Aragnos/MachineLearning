@@ -34,6 +34,20 @@ CLASS lcl_linear_regression IMPLEMENTATION.
 
 METHOD start.
 
+  calculate_sums( EXPORTING data = data
+                  IMPORTING sum_x  = DATA(sum_x)
+                            sum_x2 = DATA(sum_x2)
+                            sum_y  = DATA(sum_y)
+                            sum_xy = DATA(sum_xy) ).
+                            
+  calculate_constants( EXPORTING n      = lines(data)
+                                 sum_x  = DATA(sum_x)
+                                 sum_x2 = DATA(sum_x2)
+                                 sum_y  = DATA(sum_y)
+                                 sum_xy = DATA(sum_xy) 
+                       IMPORTING a      = a
+                                 b      = b ).
+                               
 ENDMETHOD.
 
 METHOD calculate_sums.
